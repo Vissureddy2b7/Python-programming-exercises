@@ -1,0 +1,756 @@
+1.
+t = int(input())
+
+for i in range(t):
+    n = int(input())
+    arr = []
+    temp = 0
+
+    arr = [int(ele) for ele in input().split()]
+    max_val = arr[0]
+
+    for cur_ele in arr:
+        if temp + cur_ele > 0:
+            temp = temp + cur_ele
+            if temp > max_val:
+                max_val = temp
+        else:
+            temp = 0
+    print(max_val)
+2.
+t = int(input())
+
+for i in range(t):
+    n = int(input())
+    arr = [int(ele) for ele in input().split()]
+    arr_sum = 0
+    for ele in arr:
+        arr_sum = arr_sum + ele
+    true_sum = n * (n + 1) // 2
+    print(true_sum - arr_sum)
+3.
+t = int(input())
+
+for _ in range(t):
+    n = int(input())
+    arr = [int(ele) for ele in input().split()]
+    i, l, r = 0, 0, n-1
+    while i <= r:
+        if arr[i] == 2:
+            temp = arr[i]
+            arr[i] = arr[r]
+            arr[r] = temp
+            r -= 1
+        elif arr[i] == 0:
+            temp = arr[i]
+            arr[i] = arr[l]
+            arr[l] = temp
+            l += 1
+            i += 1
+        else:
+            i += 1
+    print(" ".join(map(str, arr)))
+4.
+t = int(input())
+
+for _ in range(t):
+    n = int(input())
+    arr = [int(ele) for ele in input().split()]
+    i, l, r = 0, 0, n-1
+    while i <= r:
+        if arr[i] == 2:
+            temp = arr[i]
+            arr[i] = arr[r]
+            arr[r] = temp
+            r -= 1
+        elif arr[i] == 0:
+            temp = arr[i]
+            arr[i] = arr[l]
+            arr[l] = temp
+            l += 1
+            i += 1
+        else:
+            i += 1
+    print(" ".join(map(str, arr)))
+5.
+# Input:
+# 2
+# 7
+# 1 101 2 3 100 4 5
+# 4
+# 10 5 4 3
+
+# Output:
+# 106
+# 10
+
+t = int(input())
+
+for _ in range(t):
+    n   = int(input())
+    arr = [int(ele) for ele in input().split()]
+    max_arr = arr[:]
+    for i in range(1, n):
+        for j in range(i):
+            if arr[i] > arr[j] and max_arr[i] < max_arr[j] + arr[i]:
+                max_arr[i] = max_arr[j] + arr[i]
+    print(max(max_arr))
+6.
+# Input:
+# 2
+# 7
+# 1 101 2 3 100 4 5
+# 4
+# 10 5 4 3
+
+# Output:
+# 106
+# 10
+
+t = int(input())
+
+for _ in range(t):
+    n   = int(input())
+    arr = [int(ele) for ele in input().split()]
+    max_arr = arr[:]
+    for i in range(1, n):
+        for j in range(i):
+            if arr[i] > arr[j] and max_arr[i] < max_arr[j] + arr[i]:
+                max_arr[i] = max_arr[j] + arr[i]
+    print(max(max_arr))
+7.
+# Input:
+# 2
+# 6
+# 16 17 4 3 5 2
+# 5
+# 1 2 3 4 0
+# Output:
+# 17 5 2
+# 4 0
+
+t = int(input())
+
+for _ in range(t):
+    n = int(input())
+    arr = [int(ele) for ele in input().split()]
+    max_val = -1
+    result = ""
+    for i in range(n-1, -1, -1):
+        if arr[i] > max_val:
+            result = str(arr[i]) + " " + result
+            max_val = arr[i]
+    print(result)
+8.
+# INPUT:
+# 1
+# 6
+# 900  940 950  1100 1500 1800
+# 910 1200 1120 1130 1900 2000
+#
+# OUTPUT:
+# 3
+
+t = int(input())
+
+for _ in range(t):
+    n = int(input())
+    arr = [int(ele) for ele in input().split()]
+    dep = [int(ele) for ele in input().split()]
+
+    arr_sorted = sorted(arr)
+    dep_sorted = sorted(dep)
+
+    i, j, platforms,  max_platforms = 1, 0, 1, 1
+    while i < n and j < n:
+        if arr_sorted[i] < dep_sorted[j]:
+            i += 1
+            platforms += 1
+            if platforms > max_platforms:
+                max_platforms = platforms
+        else:
+            j += 1
+            platforms -= 1
+    print(max_platforms)
+9.
+# Input
+# 1
+# 5
+# 1 2 3 4 5
+# 3
+# Output
+# 3 2 1 5 4
+
+def reverse(arr, l, r):
+    temp    = 0
+    mid     = (l + r) // 2
+    for i in range(l, mid + 1):
+        temp            = arr[i]
+        arr[i]          = arr[r + l - i]
+        arr[r + l - i]  = temp
+
+t = int(input())
+
+for _ in range(t):
+    n   = int(input())
+    arr = [int(ele) for ele in input().split()]
+    k   = int(input())
+
+    for i in range(0, n, k):
+        r = i + k - 1 if (i + k - 1) < n else n - 1
+        reverse(arr, i, r)
+
+    for ele in arr:
+        print(ele, end=" ")
+    print()
+10.
+class MinHeap:
+
+    def __init__(self):
+        self.heapList = [0]
+        self.heapSize = 0
+
+    def insert(self, k):
+        self.heapList.append(k)
+        self.heapSize += 1
+        newIndex = self.heapSize
+        self.percUp(newIndex)
+
+    def percUp(self, newIndex):
+        while newIndex // 2 > 0:
+            if self.heapList[newIndex] < self.heapList[newIndex // 2]:
+                temp = self.heapList[newIndex]
+                self.heapList[newIndex] = self.heapList[newIndex // 2]
+                self.heapList[newIndex // 2] = temp
+            newIndex = newIndex // 2
+
+    def delMin(self):
+        self.heapList[1] = self.heapList[self.heapSize]
+        self.heapList.pop()
+        self.heapSize -= 1
+        self.percDown(1)
+
+    def percDown(self, index):
+        while index * 2 <= self.heapSize:
+            min_child = self.minChild(index)
+            if self.heapList[index] > self.heapList[min_child]:
+                temp = self.heapList[min_child]
+                self.heapList[min_child] = self.heapList[index]
+                self.heapList[index] = temp
+            index = min_child
+
+    def minChild(self, index):
+        if index * 2 + 1 > self.heapSize:
+            return index * 2
+        else:
+            if self.heapList[index*2] < self.heapList[index*2 + 1]:
+                return index * 2
+            else:
+                return index * 2 + 1
+
+    def buildMinHeap(self, arr):
+        self.heapSize = len(arr)
+        self.heapList = [0] + arr[:]
+        i = len(arr) // 2
+        while i > 0:
+            self.percDown(i)
+            i -= 1
+
+t = int(input())
+
+for _ in range(t):
+    n = int(input())
+    arr = [int(ele) for ele in input().split()]
+    k = int(input())
+    minHeap = MinHeap()
+    minHeap.buildMinHeap(arr)
+    for _ in range(k-1):
+        minHeap.delMin()
+    print(minHeap.heapList[1])
+11.
+# Input:
+# 2
+# 4
+# 7 4 0 9
+# 3
+# 6 9 9
+
+# Output:
+# 10
+#  0
+
+t = int(input())
+
+for _ in range(t):
+    n   = int(input())
+    arr = [int(ele) for ele in input().split()]
+    right_max_arr   = [0] * n
+    left_max_arr    = [0] * n
+
+    right_max_ele   = -1
+    left_max_ele    = -1
+
+    for i in range(n):
+        if arr[i] > left_max_ele:
+            left_max_ele = arr[i]
+        left_max_arr[i] = left_max_ele
+
+        if arr[n-1-i] > right_max_ele:
+            right_max_ele = arr[n-1-i]
+        right_max_arr[n-1-i] = right_max_ele
+
+    result = 0
+    for i in range(1, n-1):
+        cur_height = min(left_max_arr[i], right_max_arr[i])
+        if arr[i] < cur_height:
+            result += cur_height - arr[i]
+    print(result)
+12.
+# Input:
+# 1
+# 5
+# 3 2 4 6 5
+# Output:
+# Yes
+
+t = int(input())
+for _ in range(t):
+    n   = int(input())
+    arr = [int(ele) ** 2 for ele in input().split()]
+    arr = sorted(arr)
+
+    if n < 3:
+        print("No")
+    else:
+        flag = 0
+        for i in range(n-1, 1, -1):
+            l, r, cur_ele = 0, i-1, arr[i]
+            while l < r:
+                temp = arr[l] + arr[r]
+                if temp == cur_ele:
+                    print("Yes")
+                    flag = 1
+                    break
+                elif temp > cur_ele:
+                    r -= 1
+                else:
+                    l += 1
+            if flag == 1:
+                break
+        if flag == 0:
+            print("No")
+13.
+t = int(input())
+
+for _ in range(t):
+    n       = int(input())
+    arr     = [int(ele) for ele in input().split()]
+    k       = int(input())
+    arr     = sorted(arr)
+    min_val = 100000
+    for i in range(0, n - k + 1):
+        cur_diff = arr[i+k-1] - arr[i]
+        if  cur_diff < min_val:
+            min_val = cur_diff
+    print(min_val)
+14.
+# Input:
+# 2
+# 7
+# 100 180 260 310 40 535 695
+# 10
+# 23 13 25 29 33 19 34 45 65 67
+
+# Output:
+
+# (0 3) (4 6)
+# (1 4) (5 9)
+
+t = int(input())
+
+for _ in range(t):
+    n   = int(input())
+    arr = [int(ele) for ele in input().split()]
+    i   = 0
+    bought_flag = 0
+    sold_flag   = 1
+
+    bought_index    = 0
+    sold_index      = 0
+    flag = 0
+    while i < n:
+        if bought_flag == 0:
+            while i+1 < n and arr[i] > arr[i+1]:
+                i += 1
+            bought_index = i
+            sold_flag = 0
+            bought_flag = 1
+        else:
+            while i+1 < n and arr[i] < arr[i+1]:
+                i += 1
+            sold_index = i
+            print("(%d %d)" % (bought_index, sold_index), end=" ")
+            sold_flag = 1
+            bought_flag = 0
+            flag = 1
+        i += 1
+    if flag == 0:
+        print("No Profit")
+    else:
+        print()
+15.
+# Input:
+# 2
+# 7
+# 100 180 260 310 40 535 695
+# 10
+# 23 13 25 29 33 19 34 45 65 67
+
+# Output:
+
+# (0 3) (4 6)
+# (1 4) (5 9)
+
+t = int(input())
+
+for _ in range(t):
+    n   = int(input())
+    arr = [int(ele) for ele in input().split()]
+    i   = 0
+    bought_flag = 0
+    sold_flag   = 1
+
+    bought_index    = 0
+    sold_index      = 0
+    flag = 0
+    while i < n:
+        if bought_flag == 0:
+            while i+1 < n and arr[i] > arr[i+1]:
+                i += 1
+            bought_index = i
+            sold_flag = 0
+            bought_flag = 1
+        else:
+            while i+1 < n and arr[i] < arr[i+1]:
+                i += 1
+            sold_index = i
+            print("(%d %d)" % (bought_index, sold_index), end=" ")
+            sold_flag = 1
+            bought_flag = 0
+            flag = 1
+        i += 1
+    if flag == 0:
+        print("No Profit")
+    else:
+        print()
+16
+# Input:
+# 2
+# 7
+# 4 3 7 8 6 2 1
+# 4
+# 1 4 3 2
+# Output:
+# 3 7 4 8 2 6 1
+# 1 4 2 3
+
+def swap(arr, i, j):
+    temp = arr[i]
+    arr[i] = arr[j]
+    arr[j] = temp
+
+t = int(input())
+
+for _ in range(t):
+    n = int(input())
+    arr = [int(ele) for ele in input().split()]
+
+    flag = False
+    for i in range(n-1):
+        if flag == False and arr[i] > arr[i+1]:
+            swap(arr, i, i+1)
+        if flag == True and arr[i] < arr[i+1]:
+            swap(arr, i, i+1)
+        flag = not flag
+    for ele in arr:
+        print(ele, end=" ")
+    print()
+17
+# Input:
+
+# 1
+# 11
+# 1 1 2 2 3 3 4 50 50 65 65
+# 0 1 2 3 4 5 6  7  8  9 10
+# l         m             r
+
+# Output:
+
+# 4
+
+def binarySearch(arr, l, r):
+    if l > r:
+        return -1
+
+    if l == r:
+        return arr[l]
+
+    mid  = (l + r) // 2
+    if (mid % 2) == 0:
+        if arr[mid] == arr[mid+1]:
+            return binarySearch(arr, mid+2, r)
+        else:
+            return binarySearch(arr, l, mid)
+    if (mid % 2) == 1:
+        if arr[mid] == arr[mid-1]:
+            return binarySearch(arr, mid+1, r)
+        else:
+            return binarySearch(arr, l, mid-1)
+
+t = int(input())
+
+for _ in range(t):
+    n = int(input())
+    arr = [int(ele) for ele in input().split()]
+    print(binarySearch(arr, 0, n-1))
+18
+# Input:
+
+# 1
+# 11
+# 1 1 2 2 3 3 4 50 50 65 65
+# 0 1 2 3 4 5 6  7  8  9 10
+# l         m             r
+
+# Output:
+
+# 4
+
+def binarySearch(arr, l, r):
+    if l > r:
+        return -1
+
+    if l == r:
+        return arr[l]
+
+    mid  = (l + r) // 2
+    if (mid % 2) == 0:
+        if arr[mid] == arr[mid+1]:
+            return binarySearch(arr, mid+2, r)
+        else:
+            return binarySearch(arr, l, mid)
+    if (mid % 2) == 1:
+        if arr[mid] == arr[mid-1]:
+            return binarySearch(arr, mid+1, r)
+        else:
+            return binarySearch(arr, l, mid-1)
+
+t = int(input())
+
+for _ in range(t):
+    n = int(input())
+    arr = [int(ele) for ele in input().split()]
+    print(binarySearch(arr, 0, n-1))
+19
+class MinHeap:
+
+    def __init__(self):
+        self.heapList = [0]
+        self.heapSize = 0
+
+    def insert(self, k):
+        self.heapList.append(k)
+        self.heapSize += 1
+        newIndex = self.heapSize
+        self.percUp(newIndex)
+
+    def percUp(self, newIndex):
+        while newIndex // 2 > 0:
+            if self.heapList[newIndex] < self.heapList[newIndex // 2]:
+                temp = self.heapList[newIndex]
+                self.heapList[newIndex] = self.heapList[newIndex // 2]
+                self.heapList[newIndex // 2] = temp
+            newIndex = newIndex // 2
+
+    def delMin(self):
+        self.heapList[1] = self.heapList[self.heapSize]
+        self.heapList.pop()
+        self.heapSize -= 1
+        self.percDown(1)
+
+    def percDown(self, index):
+        while index * 2 <= self.heapSize:
+            min_child = self.minChild(index)
+            if self.heapList[index] > self.heapList[min_child]:
+                temp = self.heapList[min_child]
+                self.heapList[min_child] = self.heapList[index]
+                self.heapList[index] = temp
+            index = min_child
+
+    def minChild(self, index):
+        if index * 2 + 1 > self.heapSize:
+            return index * 2
+        else:
+            if self.heapList[index*2] < self.heapList[index*2 + 1]:
+                return index * 2
+            else:
+                return index * 2 + 1
+
+    def buildMinHeap(self, arr):
+        self.heapSize = len(arr)
+        self.heapList = [0] + arr[:]
+        i = len(arr) // 2
+        while i > 0:
+            self.percDown(i)
+            i -= 1
+
+t = int(input())
+
+for _ in range(t):
+    k, n = [int(ele) for ele in input().split()]
+    arr = [int(ele) for ele in input().split()]
+    minHeap = MinHeap()
+    for i in range(n):
+        if minHeap.heapSize < k-1:
+            minHeap.insert(arr[i])
+            print(-1, end=" ")
+        elif minHeap.heapSize == k-1:
+            minHeap.insert(arr[i])
+            print(minHeap.heapList[1], end=" ")
+        else:
+            if arr[i] > minHeap.heapList[1]:
+                minHeap.insert(arr[i])
+                minHeap.delMin()
+            print(minHeap.heapList[1], end=" ")
+    print()
+20
+# Input:
+# 1
+# 11 4
+# 2 1 2 5 7 1 9 3 6 8 8
+# 2 1 8 3
+
+# Output:
+# 2 2 1 1 8 8 3 5 6 7 9
+
+t = int(input())
+
+for _ in range(t):
+    n1, n2 = [int(ele) for ele in input().split()]
+    arr1 = [int(ele) for ele in input().split()]
+    arr2 = [int(ele) for ele in input().split()]
+
+    arr1Map = {}
+    remaining_arr = []
+    for ele in arr1:
+        if ele in arr1Map:
+            arr1Map[ele] = arr1Map[ele] + 1
+        else:
+            arr1Map[ele] = 1
+        if ele not in arr2:
+            remaining_arr.append(ele)
+
+    sorted_array = []
+    for ele in arr2:
+        if ele in arr1Map:
+            n = arr1Map[ele]
+            while n > 0:
+                sorted_array.append(ele)
+                n -= 1
+
+    sorted_array.extend(sorted(remaining_arr))
+    print(" ".join([str(ele) for ele in sorted_array]))
+21
+# Input:
+# 1
+# 5
+# 5 5 4 6 4
+
+# Output:
+# 4 4 5 5 6
+import operator
+
+t = int(input())
+
+for _ in range(t):
+    n = int(input())
+    arr = [int(ele) for ele in input().split()]
+
+    arrMap = {}
+    for ele in arr:
+        if ele not in arrMap:
+            arrMap[ele] = 1
+        else:
+            arrMap[ele] = arrMap[ele] + 1
+    sorted_arr = sorted(arrMap.items(),
+                        key=operator.itemgetter(1),
+                        reverse=True)
+
+    for (key, val) in sorted_arr:
+        n = val
+        while n > 0:
+            print(key, end=" ")
+            n -= 1
+    print()
+
+22
+# Input:
+# 1
+# 5
+# 5 5 4 6 4
+
+# Output:
+# 4 4 5 5 6
+import operator
+
+t = int(input())
+
+for _ in range(t):
+    n = int(input())
+    arr = [int(ele) for ele in input().split()]
+
+    arrMap = {}
+    for ele in arr:
+        if ele not in arrMap:
+            arrMap[ele] = 1
+        else:
+            arrMap[ele] = arrMap[ele] + 1
+    sorted_arr = sorted(arrMap.items(),
+                        key=operator.itemgetter(1),
+                        reverse=True)
+
+    for (key, val) in sorted_arr:
+        n = val
+        while n > 0:
+            print(key, end=" ")
+            n -= 1
+    print()
+
+23
+# Input:
+# 2
+# 5
+# 3 30 34 5 9
+# 4
+# 54 546 548 60
+#
+# Output:
+# 9534330
+# 6054854654
+
+import functools
+
+def customCompare(a, b):
+    if int(str(a) + str(b)) > int(str(b) + str(a)):
+        return -1
+    elif int(str(a) + str(b)) < int(str(b) + str(a)):
+        return 1
+    else:
+        return 0
+
+t = int(input())
+
+for _ in range(t):
+    n = int(input())
+    arr = [int(ele) for ele in input().split()]
+    print("".join([str(ele) for ele in sorted(arr, key=functools.cmp_to_key(customCompare))]))
