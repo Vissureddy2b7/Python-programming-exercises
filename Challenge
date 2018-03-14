@@ -1,0 +1,202 @@
+
+
+	import java.util.Scanner;
+public class dup {		
+		public static void main(String args[]){
+			
+			Scanner s = new Scanner(System.in);
+			
+			/* Reading the Weather from the input */
+			System.out.print("Enter the Weather: ");
+			String weatherline = s.nextLine();
+			
+			/* Reading the Orbit1 traffic speed from the input */
+			System.out.print("Enter the Orbit 1 traffic Speed: ");
+			String Orbit1trafficline = s.nextLine();
+			
+			/* Reading the Orbit2 traffic speed from the input */
+			System.out.print("Enter the Orbit 2 traffic Speed: ");
+			String Orbit2trafficline = s.nextLine();
+			
+			/* Reading the exact weather from the Whole weather input */
+			String Weather = weatherline.substring(11);
+			
+			/* Reading the exact Orbit1 Speed from the Whole weather input */
+			float Orbit1traffic = Float.parseFloat(Orbit1trafficline.substring(24,26));
+			
+			/* Reading the exact Orbit Speed2 from the Whole weather input */
+			float Orbit2traffic = Float.parseFloat(Orbit2trafficline.substring(24,26));
+			
+			if(Weather.equalsIgnoreCase("rainy")){
+				int weathercarter=20; 
+				String[] biketime = bike(Orbit1traffic,Orbit2traffic,weathercarter);
+				String[] tuktuk = tuktuk(Orbit1traffic,Orbit2traffic,weathercarter);
+				String[] supercar = supercar(Orbit1traffic,Orbit2traffic,weathercarter);
+				
+				String result = min(Float.parseFloat(biketime[1]),Float.parseFloat(tuktuk[1]),Float.parseFloat(supercar[1]));
+			
+				if(result.equals("bike")){
+					System.out.println("Vehicle Bike on "+biketime[0]);
+					
+				}
+				
+				if(result.equals("tuktuk")){
+					System.out.println("Vehicle Tuktuk on "+tuktuk[0]);
+									
+								}
+				if(result.equals("Supercar")){
+					System.out.println("Vehicle Supercar on "+supercar[0]);
+					
+				}
+				
+			}
+		
+			
+			if(Weather.equalsIgnoreCase("windy")){
+				int weathercarter=0; 
+				String[] biketime = bike(Orbit1traffic,Orbit2traffic,weathercarter);
+				String[] tuktuk = tuktuk(Orbit1traffic,Orbit2traffic,weathercarter);
+				String[] supercar = supercar(Orbit1traffic,Orbit2traffic,weathercarter);
+				
+				String result = min(Float.parseFloat(biketime[1]),Float.parseFloat(tuktuk[1]),Float.parseFloat(supercar[1]));
+			
+				if(result.equals("bike")){
+					System.out.println("Vehicle Bike on "+biketime[0]);
+					
+				}
+				
+				if(result.equals("tuktuk")){
+					System.out.println("Vehicle Tuktuk on "+tuktuk[0]);
+									
+								}
+				if(result.equals("Supercar")){
+					System.out.println("Vehicle Supercar on "+supercar[0]);
+					
+				}
+				
+			}
+		
+			
+			if(Weather.equalsIgnoreCase("sunny")){
+				int weathercarter=10; 
+				String[] biketime = bike(Orbit1traffic,Orbit2traffic,weathercarter);
+				String[] tuktuk = tuktuk(Orbit1traffic,Orbit2traffic,weathercarter);
+				String[] supercar = supercar(Orbit1traffic,Orbit2traffic,weathercarter);
+				
+				String result = min(Float.parseFloat(biketime[1]),Float.parseFloat(tuktuk[1]),Float.parseFloat(supercar[1]));
+			
+				if(result.equals("bike")){
+					System.out.println("Vehicle Bike on "+biketime[0]);
+					
+				}
+				
+				if(result.equals("tuktuk")){
+					System.out.println("Vehicle Tuktuk on "+tuktuk[0]);
+									
+								}
+				if(result.equals("Supercar")){
+					System.out.println("Vehicle Supercar on "+supercar[0]);
+					
+				}
+				
+			}
+		}
+		
+		 static String min(float bike , float tuktuk , float supercar) {
+			 if(bike<tuktuk && bike<supercar){
+				    return "bike";
+				}else if(tuktuk<supercar && tuktuk<bike){
+					return "tuktuk";
+				}else{
+					return "Supercar";
+				}
+			
+		}
+
+		static String[] bike(float orbit1traffic,float orbit2traffic,int weathercarter){
+			String[] s = new String[2];
+			float bikespeed =10;
+			float bikecartertime = 2;
+			Boolean flag=  min(orbit1(orbit1traffic,bikespeed,weathercarter,bikecartertime),orbit2(orbit2traffic,bikespeed,weathercarter,bikecartertime));
+			if(flag==true){
+				s[0]="Orbit2";
+				s[1]=String.valueOf(orbit2(orbit2traffic,bikespeed,weathercarter,bikecartertime));
+				return s;
+			}
+			
+			else if (flag==false){
+				s[0]="Orbit1";
+				s[1]=String.valueOf(orbit1(orbit1traffic,bikespeed,weathercarter,bikecartertime));
+				return s;
+			}
+			return null;
+		}
+		
+		static String[] tuktuk(float orbit1traffic,float orbit2traffic,int weathercarter){
+			String[] s = new String[2];
+			float tuktukspeed =12;
+			float tuktukcartertime = 1;
+			Boolean flag=  min(orbit1(orbit1traffic,tuktukspeed,weathercarter,tuktukcartertime),orbit2(orbit2traffic,tuktukspeed,weathercarter,tuktukcartertime));
+			if(flag==true){
+				s[0]="Orbit2";
+				s[1]=String.valueOf(orbit2(orbit2traffic,tuktukspeed,weathercarter,tuktukcartertime));
+				return s;
+			}
+			
+			else if (flag==false){
+				s[0]="Orbit1";
+				s[1]=String.valueOf(orbit1(orbit1traffic,tuktukspeed,weathercarter,tuktukcartertime));
+				return s;
+			}
+			return null;
+		}
+		
+		static String[] supercar(float orbit1traffic,float orbit2traffic,int weathercarter){
+			String[] s = new String[2];
+			float supercarspeed =20;
+			float supercartertime = 3;
+			Boolean flag=  min(orbit1(orbit1traffic,supercarspeed,weathercarter,supercartertime),orbit2(orbit2traffic,supercarspeed,weathercarter,supercartertime));
+			if(flag==true){
+				s[0]="Orbit2";
+				s[1]=String.valueOf(orbit2(orbit2traffic,supercarspeed,weathercarter,supercartertime));
+				return s;
+			}
+			
+			else if (flag==false){
+				s[0]="Orbit1";
+				s[1]=String.valueOf(orbit1(orbit1traffic,supercarspeed,weathercarter,supercartertime));
+				return s;
+			}
+			return null;
+		}
+		
+		static float orbit1(float orbit1traffic, float vehiclespeed, int weathercarter,float cartertime) {
+			int numcarter = 20;
+			float distance=18;
+			float time;
+			if(vehiclespeed>orbit1traffic)
+				vehiclespeed=orbit1traffic;
+			time = (distance/vehiclespeed)+((numcarter-(weathercarter*20/100))*cartertime/60);
+			return time;	
+		}
+		static float orbit2(float orbit2traffic, float vehiclespeed, float weathercarter,float cartertime) {
+			float numcarter = 10;
+			float distance=20;
+			float time;
+			if(vehiclespeed>orbit2traffic)
+				vehiclespeed=orbit2traffic;
+			time = (distance/vehiclespeed) +((numcarter-(weathercarter*10/100))*(cartertime/60));
+			return time;	
+		}
+		
+		static Boolean min(float orbit1, float orbit2) {
+			Boolean Flag = false;
+			if(orbit1>orbit2){
+				Flag = true;
+				return Flag;
+			}
+			return Flag;
+		}
+
+}
+
