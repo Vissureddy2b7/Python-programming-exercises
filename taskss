@@ -1,0 +1,55 @@
+Java Programming Task
+Refactor the following tree traversal algorithm from a recursive solution to a non-recursive solution. Your solution must not change the externally observable behavior of the traverse method. Here is the original code:
+class Tree {
+	Tree parent, left, right;
+	char value;
+	Tree(char v) { this.value=v; }
+}
+
+public class Traverser {
+	public static String traverse(Tree tree) {
+		if (tree == null) return "";
+		String res = traverse(tree.right);
+		res += traverse(tree.left);
+		return res + tree.value;
+	}
+}
+Here is a unit test:
+import static org.junit.Assert.*;
+import org.junit.Test;
+
+public class TraverserTest {
+
+	@Test
+	public void test() {
+		Tree root, a, r, l;
+		a=new Tree('n'); 
+		r=new Tree('c');
+		l=new Tree('o');
+		a.left = l; a.right = r;
+		l.parent=a; r.parent=a;
+		root=a;
+
+		a=r;
+		r=new Tree('r');
+		l=new Tree('n');
+		a.left = l;a.right = r;
+		l.parent=a; r.parent=a;
+
+		a=root.left;;
+		r=new Tree('e');
+		l=new Tree('t');
+		a.left = l;a.right = r;
+		l.parent=a; r.parent=a;
+
+		r=new Tree('P');
+		l=new Tree('i');
+		root.right.left.left = l; root.right.right.right = r;
+		l.parent=root.right.left; r.parent=root.right.right;
+		
+		
+		String actual = Traverser.traverse(root);
+		assertEquals("Princeton", actual);
+	}
+
+}
